@@ -1,0 +1,147 @@
+﻿@model SampleHomepage.Models.ProductsCommentsModel
+@using SampleHomepage.Models
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("ProductCategory", "Home", new { id = Model.Product.ProductID })">@Model.Product.category.CategoryName</a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <!-- Image -->
+        <div class="col-12 col-lg-6">
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    <a href="" data-toggle="modal" data-target="#productModal">
+                        <img class="img-fluid" src="@Url.Action("GetImage", new { id = Model.Product.ProductID })" width="500" height="250" />
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Add to cart -->
+        <div class="col-12 col-lg-6 add_to_cart_block">
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    <label>Name :</label><p class="name">@Model.Product.ProductName</p>
+                    <label>Price :</label><p class="name">@Model.Product.ProductPrice PHP</p>
+                    <div class="form-group">
+                        <label>Description :</label>
+                        <p class="name">@Model.Product.ProductDescription</p>
+                        <div class="reviews_product p-3 mb-2 ">
+                            @{
+                                ThesisEntities db = new ThesisEntities();
+                                var n = db.comments.Where(x => x.ProductID == Model.Product.ProductID).ToList().Count;
+                            }
+                            @{
+                                string review = "";
+                                if (n > 1)
+                                {
+                                    review = n + " reviews";
+                                }
+                                else
+                                {
+                                    review = n + " review";
+                                }
+                            }
+                            @review <br />
+                            @{
+                                var a = Model.Product.AverageRating;
+                                for (int i = 0; i < a; i++)
+                                {
+                                    <i class="fa fa-star"></i>
+                                }
+                                for (int i = 0; i < (5 - a); i++)
+                                {
+                                    <i class="fa fa-star" style="color:darkgray"></i>
+                                }
+                            }
+                            <br />Average Rating: (@a/5)
+                            <a class="pull-right" href="#reviews">View all reviews</a>
+                        </div>
+                        <a href="@Url.Action("AllProducts", "Home")"><i class="fa fa-arrow-left"></i> Continue shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Reviews -->
+<div class="col-12" id="reviews">
+    <div class="card border-light mb-3">
+        <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-comment"></i> Reviews</div>
+        <div class="card-body">
+            @*<div class="review">
+            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+            <meta itemprop="datePublished" content="01-01-2016">January 01, 2018
+
+            <div class="reviews_product">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <span class="fa fa-star" style="color:black"></span>
+            </div>
+
+            by Paul Smith
+            <p class="blockquote">
+            <p class="mb-0">@Model.ProductDescription</p>
+
+            <hr>
+        </div>*@
+
+            @{
+                if (Model.CommentList != null)
+                {
+                    foreach (var item in Model.CommentList)
+                    {
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                        <meta itemprop="datePublished" content="01-01-2016">@item.ThisDateTime.Value.ToLongDateString();
+                        <div class="reviews_product">
+                            @for (int i = 0; i < item.Rating; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                            @for (int i = 0; i < (5 - item.Rating); i++)
+                            {
+                                <i class="fa fa-star" style="color:darkgray"></i>
+                            }
+                        </div>
+                        <p>by @item.FullName</p>
+                        <p style="font-weight:bold">@item.Comments</p>
+                    }
+                }
+            }
+
+        </div>
+    </div>
+    
+</div>
+<p>ADD A REVIEW:</p>
+<form action="@Url.Action("ViewProduct")" method="post">
+    <p>Full Name:</p> <input type="text" name="txtName" style="background-color:whitesmoke"/> <br />
+    <p>Comment:</p> <textarea name="TxtComment"></textarea> <br />
+    Rating: <select name="slctRating">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select> <br />
+    <input type="hidden" name="ID" value="@Model.Product.ProductID"/>
+    <input type="submit" value="SUBMIT REVIEW" />
+</form>

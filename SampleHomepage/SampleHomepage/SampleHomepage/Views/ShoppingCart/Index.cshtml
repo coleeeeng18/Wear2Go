@@ -1,0 +1,114 @@
+﻿@using SampleHomepage.Models
+@model SampleHomepage.Models.Cart
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <form action="@Url.Action("UpdateCart")" method="post">
+                <table class="table table-hover">
+
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>Product</th>
+                            <th></th>
+                            <th>Quantity</th>
+                            <th class="text-center">Price</th>
+                            <th></th>
+                            <th class="text-center">Total</th>
+                            <th> </th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in (List<Cart>)Session["cart"])
+                        {
+                            <tr>
+                                <td></td>
+                                <td class="col-sm-8 col-md-6">
+                                    <div class="media">
+                                        <a href="@Url.Action("ViewProduct", "Home", new { id = item.ProductID })">
+                                            <img class="media-object" style="width: 80px; height: 80px;" src="@Url.Action("GetImage", "Home", new { id = @item.ProductID })" />
+                                        </a>
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">
+                                            <a href="@Url.Action("ViewProduct", "Home", new { id = item.ProductID })">
+                                                @item.ProductName
+                                            </a>
+                                        </h4>
+                                    </div>
+                                </td>
+                                <td></td>
+                                <td class="col-sm-1 col-md-1" style="text-align: center">
+                                    <p>
+                                        @{
+                                            var a = item.CartID - 1;
+                                        }
+                                        <input type="number" name=@a value=@item.Quantity>
+                                    </p>
+                                </td>
+
+                                <td class="col-sm-1 col-md-1" style="text-align: center">
+                                    <p>@item.ProductPrice</p>
+                                </td>
+                                <td></td>
+                                <td class="col-sm-1 col-md-1 text-center">
+                                    <p>@item.Total</p>
+                                </td>
+                                <td></td>
+                                <td class="col-sm-1 col-md-1">
+                                    <a href="@Url.Action("Delete", new { id = item.ProductID })">Remove Item</a>
+
+                                </td>
+                                <td></td>
+                            </tr>
+
+
+                                            }
+                        @{
+                            var grantTotal = (decimal)Session["grandTotal"];
+                            <tr>
+                                <td colspan="3"><h4>Sub Total:</h4></td>
+                                <td><h4>@grantTotal</h4></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        }
+                        <tr>
+                            <td>   </td>
+                            <td>   </td>
+                            <td>   </td>
+                            <td>   </td>
+                            <td>    </td>
+                            <td>
+      
+                                @Html.ActionLink("Continue Shopping", "AllProducts", "Home", null, new { @class = "btn btn-default"})
+                            </td>
+                            <td></td>
+                            <td>
+                                @Html.ActionLink("Checkout", "CustomerDetails", "ShoppingCart", null, new { @class="btn btn-success"})
+                            </td>
+                            <td></td>
+                            <td><input type="submit" value="UPDATE" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </form>
+            </div>
+        </div>
+    </div>

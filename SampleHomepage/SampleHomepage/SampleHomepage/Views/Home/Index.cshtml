@@ -1,0 +1,110 @@
+﻿@model SampleHomepage.Models.product
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<!--Carousel-->
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+        <div class="item">
+    <img src="~/Content/Images/indexfinal.jpg" width="1200" height="500" alt="Second slide">
+</div>
+
+<!--body-->
+<section class="banner bgwhite p-t-40 p-b-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
+                <!-- block1 -->
+                <div class="block1 hov-img-zoom pos-relative m-b-30">
+                    <img src="~/Content/Images/mens.jpg" alt="IMG-BENNER">
+
+                    <div class="block1-wrapbtn w-size2">
+                        <!-- Button -->
+                        <a href="@Url.Action("ProductCategory","Home", new { id = 2})" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
+                            For Men
+                        </a>
+                    </div>
+                </div>
+
+                <!-- block1 -->
+                <div class="block1 hov-img-zoom pos-relative m-b-30">
+                    <img src="~/Content/Images/womens.jpg" alt="IMG-BENNER">
+
+                    <div class="block1-wrapbtn w-size2">
+                        <!-- Button -->
+                        <a href="@Url.Action("ProductCategory","Home", new { id = 1})" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
+                            For Women
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
+                <!-- block1 -->
+                <div class="block1 hov-img-zoom pos-relative m-b-30">
+                    <img src="~/Content/Images/eyewear.jpg" alt="IMG-BENNER">
+
+                    <div class="block1-wrapbtn w-size2">
+                        <!-- Button -->
+                        <a href="@Url.Action("ProductCategory","Home", new { id = 3})" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
+                            Eyewear
+                        </a>
+                    </div>
+                </div>
+
+                <!-- block1 -->
+                <div class="block1 hov-img-zoom pos-relative m-b-30">
+                    <img src="~/Content/Images/footwear.jpg" alt="IMG-BENNER">
+
+                    <div class="block1-wrapbtn w-size2">
+                        <!-- Button -->
+                        <a href="@Url.Action("ProductCategory","Home", new { id = 4})" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
+                            Footwear
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
+                <!-- block1 -->
+                <div class="block1 hov-img-zoom pos-relative m-b-30">
+                    <img src="~/Content/Images/bags.jpg" alt="IMG-BENNER">
+
+                    <div class="block1-wrapbtn w-size2">
+                        <!-- Button -->
+                        <a href="@Url.Action("ProductCategory","Home", new { id = 1002})" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
+                            Bags
+                        </a>
+                    </div>
+                </div>
+
+                <!-- block2 -->
+                <div class="block2 wrap-pic-w pos-relative m-b-30">
+                    <img src="~/Content/Images/icons/bg-01.jpg" alt="IMG">
+
+                    <div class="block2-content sizefull ab-t-l flex-col-c-m">
+                        <h4 class="m-text4 t-center w-size3 p-b-8">
+                            Sign up now
+                        </h4>
+
+                        <p class="t-center w-size4">
+                            Be the first to know about the latest fashion news and get exclu-sive offers
+                        </p>
+
+                        <div class="w-size2 p-t-25">
+                            <!-- Button -->
+                            <a href="@Url.Action("Register","Account")" class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4">
+                                Sign Up
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

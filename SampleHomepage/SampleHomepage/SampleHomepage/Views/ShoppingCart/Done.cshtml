@@ -1,0 +1,42 @@
+﻿
+@model IEnumerable<SampleHomepage.Models.Cart>
+<head>
+    @Styles.Render("~/Content/main.css")
+</head>
+   <table class="table">
+    <tr class="text-center">
+        <th></th>
+        <th>
+            Name
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Quantity
+        </th>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@Url.Action("GetImage", "Home", new { id = @item.ProductID})" width="50" height="50" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+      
+     
+        </tr>
+    }
+
+</table>
+
+                        
+
